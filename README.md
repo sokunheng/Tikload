@@ -27,6 +27,6 @@ To run the script.
 - Download all videos from a user
 ## Recommendation 
 - Use only video ID or URL. Ex: https://www.tiktok.com/@user/video/199999900888333999
-- Use a VPN or proxy for long-time use.
+- Use a VPN or proxy for long-time run.
 ## License 
 ©2022 HengSok All Rights Reserved.

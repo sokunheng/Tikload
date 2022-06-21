@@ -174,8 +174,10 @@ while True:
                     print(f"{Fore.YELLOW}[{Fore.BLUE}{count}{Fore.YELLOW}] Video Downloaded")
 
         print()
+        print(f"\n{Fore.YELLOW}===================================================================================")
         print(f"{Fore.YELLOW}[{Fore.BLUE}✓{Fore.YELLOW}] Successfully Updated/Downloaded  {Fore.BLUE}{count}  {Fore.YELLOW}Videos From {Fore.RED}@{username}")
-
+        print(f"{Fore.YELLOW}===================================================================================")
+        
     def downloadAudio():
         print(f"\n{Fore.YELLOW}Coming Soon!")
     def downloadUserProfilePicture():

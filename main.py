@@ -94,7 +94,7 @@ while True:
             out_file.write(image_bytes.content)
 
         print(f"\n{Fore.YELLOW}===================================================================================")
-        print(f"{Fore.YELLOW}[{Fore.BLUE}✓{Fore.YELLOW} Thumbnail Downloaded Successfully!")
+        print(f"{Fore.YELLOW}[{Fore.BLUE}✓{Fore.YELLOW}] Thumbnail Downloaded Successfully!")
         print(f"{Fore.YELLOW}===================================================================================")
 
 

@@ -32,7 +32,7 @@ while True:
     def downloadSingleVideo():
         with_watermark = None
         print(f"""
-    {Fore.YELLOW}Select An Option To Download the video :
+{Fore.YELLOW}Select An Option To Download the video :
     [{Fore.BLUE}1{Fore.YELLOW}] With Watermark
     [{Fore.BLUE}2{Fore.YELLOW}] Without Watermark\n""")
         while with_watermark != 1 and with_watermark != 2:
@@ -101,7 +101,7 @@ while True:
     def downloadAllVidsFromUser():
         with_watermark = None
         print(f"""
-    {Fore.YELLOW}Select An Option To Download the video :
+{Fore.YELLOW}Select An Option To Download the video :
     [{Fore.BLUE}1{Fore.YELLOW}] With Watermark
     [{Fore.BLUE}2{Fore.YELLOW}] Without Watermark\n""")
         while with_watermark != 1 and with_watermark != 2:

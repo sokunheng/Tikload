@@ -11,7 +11,7 @@ colorama.init(autoreset=True)
 
 
 os.system('cls')
-os.system(f"title Tiktok Downloader ^| HengSok ^| Status: Running")
+os.system(f"title Tikload ^| HengSok ^| Status: Running")
 print(f"""
                     {Fore.CYAN}▀█▀ █ █▄▀ ▀█▀ █▀█ █▄▀   █▀▄ █▀█ █░█░█ █▄░█ █░░ █▀█ ▄▀█ █▀▄ █▀▀ █▀█
                     {Fore.CYAN}░█░ █ █░█ ░█░ █▄█ █░█   █▄▀ █▄█ ▀▄▀▄▀ █░▀█ █▄▄ █▄█ █▀█ █▄▀ ██▄ █▀▄

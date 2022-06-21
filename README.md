@@ -24,7 +24,7 @@ To run the script.
 ## Current Features
 - Download single videos (with wm or no wm)
 - Download video thumbnail
-- Download all videos from a user
+- Download all videos from a user (with wm or no wm)
 ## Recommendation 
 - Use only video ID or URL. Ex: https://www.tiktok.com/@user/video/199999900888333999
 - Use a VPN or proxy for long-time run.

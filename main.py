@@ -1,9 +1,10 @@
+from cgi import print_arguments
+from cmath import pi
 import os
 import sys
 from os import system
-import threading
-import random
-import time
+from tqdm.auto import tqdm
+import shutil
 import requests
 import colorama
 from colorama import Fore, Back, Style
@@ -28,9 +29,10 @@ while True:
 
         return request_data
 
-
+    # Download Single Video From Tiktok User Function
     def downloadSingleVideo():
         with_watermark = None
+        # Options
         print(f"""
 {Fore.YELLOW}Select An Option To Download the video :
     [{Fore.BLUE}1{Fore.YELLOW}] With Watermark
@@ -46,14 +48,14 @@ while True:
             video_id = video_id[:video_id.find('?')]
 
         if os.path.exists(f"./downloads/videos/{video_id}-wm.mp4") and with_watermark == 1:
-            print(f"\n{Fore.YELLOW}===================================================================================")
+            print(f"\n{Fore.YELLOW}=" * 82)
             print(f"{Fore.YELLOW}[{Fore.RED}x{Fore.YELLOW}] Video Already Downloaded!")
-            print(f"{Fore.YELLOW}===================================================================================")
+            print(f"{Fore.YELLOW}=" * 82)
             return
         if os.path.exists(f"./downloads/videos/{video_id}-no-wm.mp4") and with_watermark == 2:
-            print(f"\n{Fore.YELLOW}===================================================================================")
+            print(f"\n{Fore.YELLOW}=" * 82)
             print(f"{Fore.YELLOW}[{Fore.RED}x{Fore.YELLOW}] Video Already Downloaded!")
-            print(f"{Fore.YELLOW}===================================================================================")
+            print(f"{Fore.YELLOW}=" * 82)
             return
 
         data = getVideoData(video_id)
@@ -63,13 +65,16 @@ while True:
         else:
             download_url = data["aweme_details"][0]["video"]["play_addr"]["url_list"][0]
 
-        with open(f'./downloads/videos/{video_id}-{"wm" if with_watermark == 1 else "no-wm"}.mp4', 'wb') as out_file:
-            video_bytes = requests.get(download_url, stream=True)
-            out_file.write(video_bytes.content)
+        video_bytes = requests.get(download_url, stream=True)
+        total_length = int(video_bytes.headers.get("Content-Length"))
+        with tqdm.wrapattr(video_bytes.raw, "read", total=total_length, ncols = 82, colour="BLUE", desc="") as raw:
+            with open(f'./downloads/videos/{video_id}-{"wm" if with_watermark == 1 else "no-wm"}.mp4', 'wb') as out_file:
+                shutil.copyfileobj(raw, out_file)
+                out_file.write(video_bytes.content)
 
-        print(f"\n{Fore.YELLOW}===================================================================================")
+        print(f"\n{Fore.YELLOW}=" * 82)
         print(f"""{Fore.YELLOW}[{Fore.BLUE}✓{Fore.YELLOW}] Video Downloaded Successfully!""")
-        print(f"{Fore.YELLOW}===================================================================================")
+        print(f"{Fore.YELLOW}=" * 82)
 
 
     def downloadVideoThumbnail():
@@ -80,9 +85,9 @@ while True:
             video_id = video_id[:video_id.find('?')]
 
         if os.path.exists(f"./downloads/thumbnails/{video_id}-thumbnail.jpeg"):
-            print(f"\n{Fore.YELLOW}===================================================================================")
+            print(f"\n{Fore.YELLOW}=" * 82)
             print(f"{Fore.YELLOW}[{Fore.RED}x{Fore.YELLOW}] Thumbnail Already Downloaded!")
-            print(f"{Fore.YELLOW}===================================================================================")
+            print(f"{Fore.YELLOW}=" * 82)
             return
 
         data = getVideoData(video_id)
@@ -93,13 +98,14 @@ while True:
             image_bytes = requests.get(download_url)
             out_file.write(image_bytes.content)
 
-        print(f"\n{Fore.YELLOW}===================================================================================")
+        print(f"\n{Fore.YELLOW}=" * 82)
         print(f"{Fore.YELLOW}[{Fore.BLUE}✓{Fore.YELLOW}] Thumbnail Downloaded Successfully!")
-        print(f"{Fore.YELLOW}===================================================================================")
+        print(f"{Fore.YELLOW}=" * 82)
 
-
+    # Download All Video From Tiktok User Function
     def downloadAllVidsFromUser():
         with_watermark = None
+         # Option
         print(f"""
 {Fore.YELLOW}Select An Option To Download the video :
     [{Fore.BLUE}1{Fore.YELLOW}] With Watermark
@@ -152,10 +158,13 @@ while True:
                         f"{Fore.YELLOW}[{Fore.RED}x{Fore.YELLOW}] Video Number {count} already Exists! Skipping It...")
                     continue
 
-                with open(f'./downloads/users/{username}/wm/{uri}.mp4', 'wb') as out_file:
-                    video_bytes = requests.get(download_url, stream=True)
-                    out_file.write(video_bytes.content)
-                    print(f"{Fore.YELLOW}[{Fore.BLUE}{count}{Fore.YELLOW}] Video Downloaded")
+                video_bytes = requests.get(download_url, stream=True)
+                total_length = int(video_bytes.headers.get("Content-Length"))
+                with tqdm.wrapattr(video_bytes.raw, "read", total=total_length, ncols = 82, colour="BLUE", desc="") as raw:
+                    with open(f'./downloads/users/{username}/wm/{uri}.mp4', 'wb') as out_file:
+                        shutil.copyfileobj(raw, out_file)
+                        out_file.write(video_bytes.content)
+                        print(f"{Fore.YELLOW}[{Fore.BLUE}{count}{Fore.YELLOW}] Video Downloaded")
         else:
             for video in videos:
                 count += 1
@@ -168,18 +177,43 @@ while True:
                         f"{Fore.YELLOW}[{Fore.RED}x{Fore.YELLOW}] Video Number {count} already Exists! Skipping It...")
                     continue
 
-                with open(f'./downloads/users/{username}/no-wm/{uri}.mp4', 'wb') as out_file:
-                    video_bytes = requests.get(download_url, stream=True)
-                    out_file.write(video_bytes.content)
-                    print(f"{Fore.YELLOW}[{Fore.BLUE}{count}{Fore.YELLOW}] Video Downloaded")
+                video_bytes = requests.get(download_url, stream=True)
+                total_length = int(video_bytes.headers.get("Content-Length"))
+                with tqdm.wrapattr(video_bytes.raw, "read", total=total_length, ncols = 70, colour="GREEN", desc="") as raw:
+                    with open(f'./downloads/users/{username}/no-wm/{uri}.mp4', 'wb') as out_file:
+                        shutil.copyfileobj(raw, out_file)
+                        out_file.write(video_bytes.content)
+                        print(f"{Fore.YELLOW}[{Fore.BLUE}{count}{Fore.YELLOW}] Video Downloaded")
 
         print()
-        print(f"\n{Fore.YELLOW}===================================================================================")
         print(f"{Fore.YELLOW}[{Fore.BLUE}✓{Fore.YELLOW}] Successfully Updated/Downloaded  {Fore.BLUE}{count}  {Fore.YELLOW}Videos From {Fore.RED}@{username}")
-        print(f"{Fore.YELLOW}===================================================================================")
-        
+
+    # Download Audio From Tiktok Function
     def downloadAudio():
-        print(f"\n{Fore.YELLOW}Coming Soon!")
+        video_url = input(f"{Fore.YELLOW}[{Fore.BLUE}=>{Fore.YELLOW}] Audio URL :{Fore.WHITE} ")
+
+        video_id = video_url.split("/")[5]
+        if "?" in video_url:
+            video_id = video_id[:video_id.find('?')]
+
+        if os.path.exists(f"./downloads/audio/{video_id}-audio.mp3"):
+            print(f"\n{Fore.YELLOW}=" * 82)
+            print(f"{Fore.YELLOW}[{Fore.RED}x{Fore.YELLOW}] Audio Already Downloaded!")
+            print(f"{Fore.YELLOW}=" * 82)
+            return
+
+        data = getVideoData(video_id)
+
+        download_url = data["aweme_details"][0]["video"]["origin_cover"]["url_list"][0]
+
+        with open(f'./downloads/audio/{video_id}-audio.mp3', 'wb') as out_file:
+            image_bytes = requests.get(download_url)
+            out_file.write(image_bytes.content)
+
+        print(f"\n{Fore.YELLOW}=" * 82)
+        print(f"{Fore.YELLOW}[{Fore.BLUE}✓{Fore.YELLOW}] Audio Downloaded Successfully!")
+        print(f"{Fore.YELLOW}=" * 82)
+
     def downloadUserProfilePicture():
         print(f"\n{Fore.YELLOW}Coming Soon!")
 
@@ -190,6 +224,8 @@ while True:
             os.makedirs("./downloads/videos")
         if not os.path.exists("./downloads/thumbnails"):
             os.makedirs("./downloads/thumbnails")
+        if not os.path.exists("./downloads/audio"):
+            os.makedirs("./downloads/audio")
 
         print(f"""    
 {Fore.YELLOW}Select An Option :

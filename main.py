@@ -48,14 +48,14 @@ while True:
             video_id = video_id[:video_id.find('?')]
 
         if os.path.exists(f"./downloads/videos/{video_id}-wm.mp4") and with_watermark == 1:
-            print(f"\n{Fore.YELLOW}=" * 82)
+            print(f"\n{Fore.YELLOW}==================================================================================")
             print(f"{Fore.YELLOW}[{Fore.RED}x{Fore.YELLOW}] Video Already Downloaded!")
-            print(f"{Fore.YELLOW}=" * 82)
+            print(f"{Fore.YELLOW}==================================================================================")
             return
         if os.path.exists(f"./downloads/videos/{video_id}-no-wm.mp4") and with_watermark == 2:
-            print(f"\n{Fore.YELLOW}=" * 82)
+            print(f"\n{Fore.YELLOW}==================================================================================")
             print(f"{Fore.YELLOW}[{Fore.RED}x{Fore.YELLOW}] Video Already Downloaded!")
-            print(f"{Fore.YELLOW}=" * 82)
+            print(f"{Fore.YELLOW}==================================================================================")
             return
 
         data = getVideoData(video_id)
@@ -72,9 +72,9 @@ while True:
                 shutil.copyfileobj(raw, out_file)
                 out_file.write(video_bytes.content)
 
-        print(f"\n{Fore.YELLOW}=" * 82)
+        print(f"\n{Fore.YELLOW}==================================================================================")
         print(f"""{Fore.YELLOW}[{Fore.BLUE}✓{Fore.YELLOW}] Video Downloaded Successfully!""")
-        print(f"{Fore.YELLOW}=" * 82)
+        print(f"{Fore.YELLOW}==================================================================================")
 
 
     def downloadVideoThumbnail():
@@ -85,9 +85,9 @@ while True:
             video_id = video_id[:video_id.find('?')]
 
         if os.path.exists(f"./downloads/thumbnails/{video_id}-thumbnail.jpeg"):
-            print(f"\n{Fore.YELLOW}=" * 82)
+            print(f"\n{Fore.YELLOW}==================================================================================")
             print(f"{Fore.YELLOW}[{Fore.RED}x{Fore.YELLOW}] Thumbnail Already Downloaded!")
-            print(f"{Fore.YELLOW}=" * 82)
+            print(f"{Fore.YELLOW}==================================================================================")
             return
 
         data = getVideoData(video_id)
@@ -98,9 +98,9 @@ while True:
             image_bytes = requests.get(download_url)
             out_file.write(image_bytes.content)
 
-        print(f"\n{Fore.YELLOW}=" * 82)
+        print(f"\n{Fore.YELLOW}==================================================================================")
         print(f"{Fore.YELLOW}[{Fore.BLUE}✓{Fore.YELLOW}] Thumbnail Downloaded Successfully!")
-        print(f"{Fore.YELLOW}=" * 82)
+        print(f"{Fore.YELLOW}==================================================================================")
 
     # Download All Video From Tiktok User Function
     def downloadAllVidsFromUser():
@@ -186,7 +186,9 @@ while True:
                         print(f"{Fore.YELLOW}[{Fore.BLUE}{count}{Fore.YELLOW}] Video Downloaded")
 
         print()
+        print(f"{Fore.YELLOW}==================================================================================")
         print(f"{Fore.YELLOW}[{Fore.BLUE}✓{Fore.YELLOW}] Successfully Updated/Downloaded  {Fore.BLUE}{count}  {Fore.YELLOW}Videos From {Fore.RED}@{username}")
+        print(f"{Fore.YELLOW}==================================================================================")
 
     # Download Audio From Tiktok Function
     def downloadAudio():
